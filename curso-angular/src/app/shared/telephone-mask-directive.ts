@@ -12,11 +12,11 @@ export class TelephoneMaskDirective {
     constructor(public element: ElementRef, private formControl: forms.NgControl) {
         this.nativeElement = this.element.nativeElement
 
-        setTimeout(() => formControl.control.valueChanges.subscribe((val: any) => {
-            const text = val.replace(/[_\W]+/g,'')
-            const mask = text.length < 11 ? '(99) 9999-9999' : '(99) 9 9999-9999';
+        // setTimeout(() => formControl.control.valueChanges.subscribe((val: any) => {
+        //     const text = val.replace(/[_\W]+/g,'')
+        //     const mask = text.length < 11 ? '(99) 9999-9999' : '(99) 9 9999-9999';
 
-            VMasker(this.nativeElement).maskPattern(mask)
-        }))
+        //     VMasker(this.nativeElement).maskPattern(mask)
+        // }))
     }
 }

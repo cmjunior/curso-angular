@@ -1,0 +1,22 @@
+<h1>Curso de Angular</h1>
+
+<div>
+  <h3 id="cpf" *ngIf="mostrarCPF; else mostraCNPJ">
+    CPF: {{ '12345678922' | format }}</h3>
+  <ng-template #mostraCNPJ>
+    <h3 id="cnpj">CNPJ: {{ '123456789221234' | format }}</h3>
+  </ng-template>
+</div>
+
+<input 
+  type="checkbox" 
+  [(ngModel)]="mostrarCPF">
+  {{ mostrarCPF ? 'Mostrar CNPJ' : 'Mostra CPF'}}
+<br/>
+
+<app-modal 
+  [id]="i"
+  *ngFor="let botao of botoes; let i = index"
+  [texto]="botao" 
+  (clicked)="onButtonClicked($event)">
+</app-modal>

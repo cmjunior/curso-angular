@@ -4,51 +4,84 @@
     style="width: 100vw; height: 100vh;">
 
     <h2>Cadastre-se</h2>
-    <div style="width: 40%" fxLayout="column" fxLayoutGap="12">    
-        <mat-form-field appearance="legacy">
-            <mat-label>Nome</mat-label>
-            <input matInput placeholder="Informe seu nome">
-            <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-        </mat-form-field>
-        
-        <mat-form-field appearance="legacy">
-            <mat-label>Documento</mat-label>
-            <input matInput placeholder="CPF ou CNPJ">
-            <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-        </mat-form-field>
-        
-        <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="12">
-            <mat-form-field fxFlex="50" appearance="legacy">
-                <mat-label>E-Mail</mat-label>
-                <input matInput placeholder="E-Mail">
+    <div style="width: 40%" fxLayout="column" fxLayoutGap="12">
+        <form [formGroup]="formCadastro">
+            <mat-form-field style="width: 100%;" appearance="legacy">
+                <mat-label>Nome</mat-label>
+                <input matInput formControlName="nome" placeholder="Informe seu nome">
+                <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                <mat-hint *ngIf="hasError('nome', 'required')" >Nome é obrigatório</mat-hint>
+                <mat-hint *ngIf="hasError('nome', 'minlength')" >Nome precisa ter ao menos 3 caracteres</mat-hint>
+            </mat-form-field>
+            
+            <mat-form-field style="width: 100%;" appearance="legacy">
+                <mat-label>Documento</mat-label>
+                <input matInput cpfCnpj formControlName="documento" placeholder="CPF ou CNPJ">
                 <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
             </mat-form-field>
             
-            <mat-form-field fxFlex="50" appearance="legacy">
-                <mat-label>Senha</mat-label>
-                <input matInput placeholder="Senha de Acesso">
-                <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-            </mat-form-field>
-        </div>
-        
-        <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="12">
-            <mat-form-field fxFlex="33" appearance="legacy">
-                <mat-label>CEP</mat-label>
-                <input matInput placeholder="CEP">
-                <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-            </mat-form-field>
+            <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="12">
+                <mat-form-field fxFlex="50" appearance="legacy">
+                    <mat-label>E-Mail</mat-label>
+                    <input matInput formControlName="email" placeholder="E-Mail">
+                    <mat-icon matSuffix>mail_outline</mat-icon>
+                    <mat-hint *ngIf="hasError('email', 'required')" >Email é obrigatório</mat-hint>
+                    <mat-hint *ngIf="hasError('email', 'email')" >Email precisa ser válido</mat-hint>
+                </mat-form-field>
+                
+                <mat-form-field fxFlex="50" appearance="legacy">
+                    <mat-label>Senha</mat-label>
+                    <input 
+                        type="{{ ! showPassword ? 'password' : 'text'}}" 
+                        matInput formControlName="senha" placeholder="Senha de Acesso">
+                    
+                    <mat-icon class="clickable"
+                        *ngIf="showPassword; else notShow"
+                        (click)="onShowPassword()"
+                        matSuffix>visibility_outline</mat-icon>
+
+                    <ng-template #notShow>
+                        <mat-icon matSuffix class="clickable"
+                            (click)="onShowPassword()">visibility_off</mat-icon>
+                    </ng-template>
+
+                    <mat-hint *ngIf="hasError('senha', 'required')" >Senha é obrigatório</mat-hint>
+                <mat-hint *ngIf="hasError('senha', 'minlength')" >Senha precisa ter ao menos 6 caracteres</mat-hint>
+                </mat-form-field>
+            </div>
             
-            <mat-form-field fxFlex="33" appearance="legacy">
-                <mat-label>Numero</mat-label>
-                <input matInput placeholder="Numero">
-                <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+            <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="12">
+                <mat-form-field fxFlex="33" appearance="legacy">
+                    <mat-label>CEP</mat-label>
+                    <input matInput formControlName="cep" placeholder="CEP">
+                    
+                    <mat-spinner *ngIf="buscandoCep; else iconCep"
+                        matSuffix [diameter]="20">
+                    </mat-spinner>
+                    
+                    <ng-template #iconCep>
+                        <mat-icon matSuffix>map</mat-icon>
+                    </ng-template>
+                
+                </mat-form-field>
+                
+                <mat-form-field fxFlex="33" appearance="legacy">
+                    <mat-label>Numero</mat-label>
+                    <input matInput formControlName="numero" placeholder="Numero">
+                    <mat-icon matSuffix>123</mat-icon>
+                </mat-form-field>
+                
+                <mat-form-field fxFlex="33" appearance="legacy">
+                    <mat-label>Complemento</mat-label>
+                    <input matInput formControlName="complemento" placeholder="Complemento">
+                    <mat-icon matSuffix>edit_outline</mat-icon>
+                </mat-form-field>
+            </div>
+
+            <mat-form-field style="width: 100%;" appearance="legacy">
+                <mat-label>Enderço</mat-label>
+                <input [disabled]="true" matInput formControlName="endereco">                
             </mat-form-field>
-            
-            <mat-form-field fxFlex="33" appearance="legacy">
-                <mat-label>Complemento</mat-label>
-                <input matInput placeholder="Complemento">
-                <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-            </mat-form-field>
-        </div>
+        </form>    
     </div>
 </div>

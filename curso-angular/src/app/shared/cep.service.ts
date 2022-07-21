@@ -30,7 +30,11 @@ export class CepService {
     return this.httpClient.get(this.url(cep))
       .pipe(
         map( (result: any) => {
-          return `Endereço: ${result.logradouro}, ${result.localidade}, ${result.uf}`
+          if ( result.erro) {
+            return 'CEP INVÁLIDO';
+          } 
+
+          return `Endereço: ${result.logradouro}, ${result.bairro}, ${result.localidade}, ${result.uf}`
         })
       )
   }

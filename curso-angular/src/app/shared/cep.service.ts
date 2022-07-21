@@ -10,6 +10,16 @@ export class CepService {
     return `https://viacep.com.br/ws/${cep}/json`;
   }
 
+  urlGeolocation(endereco: string) {
+    const key = '';
+    return `https://maps.googleapis.com/maps/api/geocode/json?key=${key}&address=${endereco},BR`;
+  }
+
+  urlLocation(origin: any, destination: any) {
+    const key = '';    
+    return `https://maps.googleapis.com/maps/api/directions/json?key=${key}&origin=${origin.lat},${origin.lng}&destination=${destination.lat},${destination.lng}`;
+  }
+
   constructor(
     private httpClient: HttpClient
   ) {
@@ -23,5 +33,9 @@ export class CepService {
           return `Endereço: ${result.logradouro}, ${result.localidade}, ${result.uf}`
         })
       )
+  }
+
+  buscarGeolocation() {
+    
   }
 }
